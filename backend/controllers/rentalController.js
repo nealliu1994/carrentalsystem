@@ -1,9 +1,9 @@
 //Get Rental Function:
-const Rental = require('../models/Task');
-const getTasks = async (req, res) => {
+const Rental = require('../models/Rental');
+const getRentals = async (req, res) => {
     try {
-        const tasks = await Rental.find({ userId: req.user.id });
-        res.json(tasks);
+        const rentals = await Rental.find({ userId: req.user.id });
+        res.json(rentals);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -11,40 +11,40 @@ const getTasks = async (req, res) => {
 
 
 // Add Rental Function:
-const addTask = async (req, res) => {
+const addRental = async (req, res) => {
     const { title, description, deadline } = req.body;
     try {
-        const task = await Rental.create({ userId: req.user.id, title, description, deadline });
-        res.status(201).json(task);
+        const rental = await Rental.create({ userId: req.user.id, title, description, deadline });
+        res.status(201).json(rental);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
 // Update Rental Booking:
-const updateTask = async (req, res) => {
+const updateRental = async (req, res) => {
     const { title, description, completed, deadline } = req.body;
     try {
-        const task = await Rental.findById(req.params.id);
-        if (!task) return res.status(404).json({ message: 'Task not found' });
-        task.title = title || task.title;
-        task.description = description || task.description; task.completed = completed ?? task.completed; task.deadline = deadline || task.deadline;
-        const updatedTask = await task.save();
-        res.json(updatedTask);
+        const rental = await Rental.findById(req.params.id);
+        if (!rental) return res.status(404).json({ message: 'Rental not found' });
+        rental.title = title || rental.title;
+        rental.description = description || rental.description; rental.completed = completed ?? rental.completed; rental.deadline = deadline || rental.deadline;
+        const updatedRental = await rental.save();
+        res.json(updatedRental);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
 // Delete Rental Booking:
-const deleteTask = async (req, res) => {
+const deleteRental = async (req, res) => {
     try {
-        const task = await Rental.findById(req.params.id);
-        if (!task) return res.status(404).json({ message: 'Task not found' });
-        await task.remove();
-        res.json({ message: 'Task deleted' });
+        const rental = await Rental.findById(req.params.id);
+        if (!rental) return res.status(404).json({ message: 'Rental not found' });
+        await rental.remove();
+        res.json({ message: 'Rental deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
-module.exports = { getTasks, addTask, updateTask, deleteTask };
+module.exports = { getRentals, addRental, updateRental, deleteRental };
