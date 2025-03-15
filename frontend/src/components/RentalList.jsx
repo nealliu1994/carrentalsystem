@@ -1,7 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 
-const RentalList = ({ rentals, setRental, setEditingRental }) => {
+const RentalList = ({ rentals, setRentals, setEditingRental }) => {
   const { user } = useAuth();
 
   const handleDelete = async (rentalId) => {
