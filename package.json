@@ -12,6 +12,6 @@
     "concurrently": "^7.0.0",
     "mocha": "^11.0.1"
   },
-  "author": "Car Rental Agent",
+  "author": "Car Rental Company",
   "license": "ISC"
 }
