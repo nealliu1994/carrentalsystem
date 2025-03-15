@@ -25,7 +25,7 @@ const RentalForm = ({ rentals, setRentals, editingRental, setEditingRental }) =>
         const response = await axiosInstance.put(`/api/rentals/${editingRental._id}`, formData, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
-        setTasks(rentals.map((rental) => (rental._id === response.data._id ? response.data : rental)));
+        setRentals(rentals.map((rental) => (rental._id === response.data._id ? response.data : rental)));
       } else {
         const response = await axiosInstance.post('/api/rentals', formData, {
           headers: { Authorization: `Bearer ${user.token}` },
