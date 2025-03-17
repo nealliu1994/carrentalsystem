@@ -24,7 +24,7 @@ const Rentals = () => {
     };
 
     fetchRentals();
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <div className="container mx-auto p-6">
