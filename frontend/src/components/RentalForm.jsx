@@ -41,7 +41,7 @@ const RentalForm = ({ rentals, setRentals, editingRental, setEditingRental }) =>
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-      <h1 className="text-2xl font-bold mb-4">{editingRental ? 'Your Form Name: Edit Operation' : 'Your Form Name: Create Operation'}</h1>
+      <h1 className="text-2xl font-bold mb-4">{editingRental ? 'Editing your Booking:' : 'You have select this car:'}</h1>
       <input
         type="text"
         placeholder="Title"

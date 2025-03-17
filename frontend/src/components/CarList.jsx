@@ -23,7 +23,7 @@ const CarList = () => {
     // handleRent and navigate to rental-form when user click button
     const handleRent = (car) => {
         setRentingCar(car);
-        navigate(`/rental-form/${car._id}`);
+        navigate(`/rentals`);
     };
 
     return (
