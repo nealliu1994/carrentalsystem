@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const CarList = () => {
     const [cars, setCars] = useState([]);
-    const [rentingCar, setRentingCar] = useState(null);
+    const [, setRentingCar] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
