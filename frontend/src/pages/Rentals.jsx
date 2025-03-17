@@ -3,11 +3,13 @@ import axiosInstance from '../axiosConfig';
 import RentalForm from '../components/RentalForm';
 import RentalList from '../components/RentalList';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Rentals = () => {
   const { user } = useAuth();
   const [rentals, setRentals] = useState([]);
   const [editingRental, setEditingRental] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRentals = async () => {
@@ -17,7 +19,7 @@ const Rentals = () => {
         });
         setRentals(response.data);
       } catch (error) {
-        alert('Failed to fetch rentals.');
+        navigate('/login');
       }
     };
 
