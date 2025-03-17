@@ -22,13 +22,6 @@ const Home = () => {
   return (
     <div className="container mx-auto p-6">
       <CarList cars={cars} setRentingCar={setRentingCar} />
-      {/*display the car that user chose*/}
-      {rentingCar && (
-        <div className="mt-6">
-          <h2 className="font-bold">You have selected:</h2>
-          <p>{rentingCar.brand} {rentingCar.model} - ${rentingCar.pricePerDay} per day</p>
-        </div>
-      )}
     </div>
   );
 };
