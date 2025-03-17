@@ -16,7 +16,7 @@ const Register = () => {
       alert('Registration successful. Please log in.');
       navigate('/login');
     } catch (error) {
-      alert('Registration failed. Please try again...');
+      alert('Registration failed... Please try again...');
     }
   };
 
