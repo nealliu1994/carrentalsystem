@@ -7,7 +7,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    university: '',
+    phoneNumber: '',
     address: '',
   });
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ const Profile = () => {
         setFormData({
           name: response.data.name,
           email: response.data.email,
-          university: response.data.university || '',
+          phoneNumber: response.data.phoneNumber || '',
           address: response.data.address || '',
         });
       } catch (error) {
@@ -74,10 +74,10 @@ const Profile = () => {
           className="w-full mb-4 p-2 border rounded"
         />
         <input
-          type="text"
-          placeholder="University"
-          value={formData.university}
-          onChange={(e) => setFormData({ ...formData, university: e.target.value })}
+          type="tel"
+          placeholder="Phone Number"
+          value={formData.phoneNumber}
+          onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
         <input

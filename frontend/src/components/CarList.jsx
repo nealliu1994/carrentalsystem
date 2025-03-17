@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const CarList = () => {
     const [cars, setCars] = useState([]);
-    const [setRentingCar] = useState(null);
+    const [rentingCar, setRentingCar] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const CarList = () => {
     return (
         <div>
             {cars.length === 0 ? (
-                <p>Loading our wonderful cars... thank you for your patience... </p>
+                <p>Loading cars... Thank you for your patience... </p>
             ) : (
                 cars.map((car) => (
                     <div key={car._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
