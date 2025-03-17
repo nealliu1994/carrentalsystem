@@ -19,7 +19,7 @@ const Rentals = () => {
         });
         setRentals(response.data);
       } catch (error) {
-        navigate('/login');
+        navigate('/login'), [navigate];
       }
     };
 

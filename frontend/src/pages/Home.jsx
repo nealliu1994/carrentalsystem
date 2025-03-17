@@ -4,7 +4,7 @@ import CarList from '../components/CarList';
 
 const Home = () => {
   const [cars, setCars] = useState([]);
-  const [rentingCar, setRentingCar] = useState(null);
+  const [setRentingCar] = useState(null);
 
   useEffect(() => {
     const fetchCars = async () => {
