@@ -1,3 +1,5 @@
+// for user to do CRUD on their rental bookings
+
 //Get Rental Function:
 const Rental = require('../models/Rental');
 const getRentals = async (req, res) => {
