@@ -13,7 +13,7 @@ const CarList = () => {
                 const response = await axiosInstance.get('/api/cars');
                 setCars(response.data);
             } catch (error) {
-                alert('Failed to fetch cars.');
+                alert('Failed to fetch cars...');
             }
         };
 
