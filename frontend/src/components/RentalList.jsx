@@ -30,8 +30,12 @@ const RentalList = ({ rentals, setRentals, setEditingRental }) => {
           <p>Status: {rental.status}</p>
           <p className="text-sm text-gray-500">Year: {new Date(rental.year).toLocaleDateString()}</p>
           <p className="text-sm text-gray-500">Price per day: {new Date(rental.pricePerDay).toLocaleDateString()}</p>
-          <p className="text-sm text-gray-500">Pickup Date: {new Date(rental.pickupDate).toLocaleDateString()}</p>
-          <p className="text-sm text-gray-500">Return Date: {new Date(rental.returnDate).toLocaleDateString()}</p>
+          <p className="text-sm text-gray-500">
+            Pickup Date: {rental.pickupDate ? new Date(rental.pickupDate).toISOString().split("T")[0] : "Invalid Date"}
+          </p>
+          <p className="text-sm text-gray-500">
+            Return Date: {rental.returnDate ? new Date(rental.returnDate).toISOString().split("T")[0] : "Invalid Date"}
+          </p>
           <div className="mt-2">
             <button
               onClick={() => setEditingRental(rental)}

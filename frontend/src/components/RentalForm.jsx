@@ -7,15 +7,16 @@ const RentalForm = ({ rentals, setRentals, editingRental, setEditingRental }) =>
   const { user } = useAuth();
   const location = useLocation();
   const selectedCar = location.state?.car;
-  console.log("🔍 Received selectedCar:", selectedCar);
-  const [formData, setFormData] = useState({ pickupDate: '', returnDate: '' }); // get car information
 
+  console.log("🔍 Received selectedCar:", selectedCar);
+
+  const [formData, setFormData] = useState({ pickupDate: '', returnDate: '' });
 
   useEffect(() => {
     if (editingRental) {
       setFormData({
-        pickupDate: editingRental.pickupDate || '',
-        returnDate: editingRental.returnDate || '',
+        pickupDate: editingRental.pickupDate?.split("T")[0] || '',
+        returnDate: editingRental.returnDate?.split("T")[0] || '',
       });
     } else {
       setFormData({ pickupDate: '', returnDate: '' });
@@ -23,23 +24,27 @@ const RentalForm = ({ rentals, setRentals, editingRental, setEditingRental }) =>
   }, [editingRental]);
 
   const handleSubmit = async (e) => {
-    console.log("LocalStorage Token:", localStorage.getItem("token"));
-    console.log("SessionStorage Token:", sessionStorage.getItem("token"));
-    console.log("User Token from AuthContext:", user?.token);
-
     e.preventDefault();
-    console.log("🔍 送出的 Car ID:", selectedCar._id);
+
+    const rentalData = {
+      title: `${selectedCar.brand} ${selectedCar.model}`,
+      carId: selectedCar._id,
+      pickupDate: formData.pickupDate,
+      returnDate: formData.returnDate
+    };
+
+    console.log("🔍 Sending Rental Data to Backend:", rentalData);
+
     if (!selectedCar) {
       alert("You haven't selected any car.");
       return;
-
     }
     if (!formData.pickupDate) {
-      alert("Please select a pickup date before you submitting...");
+      alert("Please select pickup date...");
       return;
     }
     if (!formData.returnDate) {
-      alert("Please select a return date before you submitting...");
+      alert("Please select return date...");
       return;
     }
     if (new Date(formData.pickupDate) < new Date()) {
@@ -51,32 +56,47 @@ const RentalForm = ({ rentals, setRentals, editingRental, setEditingRental }) =>
       return;
     }
 
-
     try {
-      const response = await axiosInstance.post('/api/rentals', {
-        title: `${selectedCar.brand} ${selectedCar.model}`,
-        carId: selectedCar._id,
-        pickupDate: formData.pickupDate,
-        returnDate: formData.returnDate,
-      }, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
-      setRentals([...rentals, response.data]);
-    } catch (error) {
-      if (error.response) {
-        console.error('Error response:', error.response);
-        alert(`Failed to submit your rental: ${error.response.data.message || 'Unknown error'}`);
+      if (editingRental) {
+        // ✅ Update rental
+        const response = await axiosInstance.put(`/api/rentals/${editingRental._id}`, {
+          pickupDate: formData.pickupDate,
+          returnDate: formData.returnDate,
+        }, {
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
+
+        setRentals(rentals.map((rental) => (rental._id === response.data._id ? response.data : rental)));
       } else {
-        console.error('Error message:', error.message);
-        alert('Failed to submit your rental.');
+        // ✅ Create rental
+        await axiosInstance.post('/api/rentals', {
+          title: `${selectedCar.brand} ${selectedCar.model}`,
+          carId: selectedCar._id,
+          pickupDate: formData.pickupDate,
+          returnDate: formData.returnDate,
+        }, {
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
+
+        // ✅ Refetch the updated rentals from backend
+        const updatedRentals = await axiosInstance.get('/api/rentals', {
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
+
+        setRentals(updatedRentals.data);
       }
+
+      setEditingRental(null);
+      setFormData({ pickupDate: '', returnDate: '' });
+    } catch (error) {
+      console.error('❌ Failed to save rental:', error.response?.data || error.message);
+      alert('Failed to save rental.');
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-      <h1 className="text-2xl font-bold mb-4">{editingRental ? 'Editing your Booking:' :
-        'You have selected this car:'}</h1>
+      <h1 className="text-2xl font-bold mb-4">{editingRental ? 'Editing your Booking:' : 'You have selected this car:'}</h1>
       {selectedCar && (
         <div className="mb-4">
           <h2 className="text-xl font-semibold">{selectedCar.brand} {selectedCar.model}</h2>
@@ -87,14 +107,15 @@ const RentalForm = ({ rentals, setRentals, editingRental, setEditingRental }) =>
       <label>Pickup Date</label>
       <input
         type="date"
-        value={formData.pickupDate ? formData.pickupDate.split("T")[0] : ""}
+        value={formData.pickupDate}
         onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
         className="w-full mb-4 p-2 border rounded"
       />
+
       <label>Return Date</label>
       <input
         type="date"
-        value={formData.returnDate ? formData.returnDate.split("T")[0] : ""}
+        value={formData.returnDate}
         onChange={(e) => setFormData({ ...formData, returnDate: e.target.value })}
         className="w-full mb-4 p-2 border rounded"
       />

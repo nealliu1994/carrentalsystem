@@ -4,11 +4,10 @@
 const Rental = require('../models/Rental');
 const getRentals = async (req, res) => {
     try {
-        const rentals = await Rental.find({ userId: req.user.id }).populate("carId");
-        console.log("🔍 API return rental list:", JSON.stringify(rentals, null, 2));
+        const rentals = await Rental.find({ userId: req.user.id }).populate("carId"); // ✅ Populate car details
+        console.log("🔍 API Returning Rentals:", JSON.stringify(rentals, null, 2)); // ✅ Log formatted data
         res.json(rentals);
     } catch (error) {
-        console.error("❌ Failed to fetch rentals:", error.message);
         res.status(500).json({ message: error.message });
     }
 };
@@ -18,12 +17,7 @@ const getRentals = async (req, res) => {
 const addRental = async (req, res) => {
     const { carId, pickupDate, returnDate } = req.body;
 
-    console.log("🟢 Received request data:", {
-        carId,
-        pickupDate,
-        returnDate,
-        userId: req.user.id
-    });
+    console.log("🟢 Received Rental Request in Backend:", req.body);
 
     if (!carId || !pickupDate || !returnDate) {
         console.error("❌ Missing required fields:", { carId, pickupDate, returnDate });
@@ -39,7 +33,7 @@ const addRental = async (req, res) => {
             status: 'confirmed'
         });
 
-        console.log("✅ Successfully stored rental:", rental);
+        console.log("✅ Successfully stored rental in DB:", rental);
         res.status(201).json(rental);
     } catch (error) {
         console.error("❌ Error saving rental:", error.message);
