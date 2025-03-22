@@ -15,7 +15,7 @@ const Login = () => {
       login(response.data);
       navigate('/');
     } catch (error) {
-      alert('Login failed. Please try again.');
+      alert('Login failed. Please try again...');
     }
   };
 
