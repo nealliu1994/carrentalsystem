@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: { type: String, required: true },
     dateOfBirth: { type: Date, required: true },
     driverLicenseNumber: { type: String, required: true, unique: true },
-    address: { type: String }
+    address: { type: String, required: true }
 },
     { timestamps: true } // add timestamps to record the time of account creating and updating
 );

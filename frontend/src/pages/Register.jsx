@@ -5,7 +5,7 @@ import axiosInstance from '../axiosConfig';
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '', email: '', password: '',
-    phoneNumber: '', dateOfBirth: '', driverLicenseNumber: ''
+    phoneNumber: '', dateOfBirth: '', driverLicenseNumber: '', address: ''
   });
   const navigate = useNavigate();
 
@@ -64,6 +64,13 @@ const Register = () => {
           placeholder="Driver License Number"
           value={formData.driverLicenseNumber}
           onChange={(e) => setFormData({ ...formData, driverLicenseNumber: e.target.value })}
+          className="w-full mb-4 p-2 border rounded"
+        />
+        <input
+          type="text"
+          placeholder="Address"
+          value={formData.address}
+          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
         <button type="submit" className="w-full bg-green-600 text-white p-2 rounded">
