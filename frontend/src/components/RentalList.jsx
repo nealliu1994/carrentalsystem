@@ -1,8 +1,13 @@
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
+import { useEffect } from 'react';
 
 const RentalList = ({ rentals, setRentals, setEditingRental }) => {
   const { user } = useAuth();
+
+  useEffect(() => {
+    console.log("🔍 Rental Data from API:", rentals);
+  }, [rentals]);
 
   const handleDelete = async (rentalId) => {
     try {
@@ -19,9 +24,14 @@ const RentalList = ({ rentals, setRentals, setEditingRental }) => {
     <div>
       {rentals.map((rental) => (
         <div key={rental._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
-          <h2 className="font-bold">{rental.title}</h2>
-          <p>{rental.description}</p>
-          <p className="text-sm text-gray-500">Deadline: {new Date(rental.deadline).toLocaleDateString()}</p>
+          <h2 className="font-bold">{rental.carId && rental.carId.brand ?
+            `${rental.carId.brand} ${rental.carId.model}` :
+            'Car not available'}</h2>
+          <p>Status: {rental.status}</p>
+          <p className="text-sm text-gray-500">Year: {new Date(rental.year).toLocaleDateString()}</p>
+          <p className="text-sm text-gray-500">Price per day: {new Date(rental.pricePerDay).toLocaleDateString()}</p>
+          <p className="text-sm text-gray-500">Pickup Date: {new Date(rental.pickupDate).toLocaleDateString()}</p>
+          <p className="text-sm text-gray-500">Return Date: {new Date(rental.returnDate).toLocaleDateString()}</p>
           <div className="mt-2">
             <button
               onClick={() => setEditingRental(rental)}
