@@ -11,6 +11,7 @@ const app = express(); // instance of Express, deal with HTTP request
 
 app.use(cors());
 app.use(express.json());
+console.log("🚀 Server is running and routes are being set up.");
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/rentals', require('./routes/rentalRoutes'));
 app.use('/api/cars', require('./routes/carRoutes'));

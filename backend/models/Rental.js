@@ -9,4 +9,6 @@ const rentalSchema = new mongoose.Schema({
     status: { type: String, enum: ['confirmed', 'completed', 'cancelled'], default: 'confirmed' }
 });
 
+delete mongoose.models['Rental']; // Remove cached model
+const Rental = mongoose.model('Rental', rentalSchema);
 module.exports = mongoose.model('Rental', rentalSchema);
