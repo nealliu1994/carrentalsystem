@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const CarList = () => {
     const [cars, setCars] = useState([]);
-    const [, setRentingCar] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,11 +18,10 @@ const CarList = () => {
 
         fetchCars();
     }, []);
-
-    // handleRent and navigate to rental-form when user click button
+    // handleRent and navigate to rentalform when user click button
     const handleRent = (car) => {
-        setRentingCar(car);
-        navigate(`/rentals`);
+        console.log("Navigating with car data:", car);
+        navigate(`/rentals`, { state: { car } });
     };
 
     return (
