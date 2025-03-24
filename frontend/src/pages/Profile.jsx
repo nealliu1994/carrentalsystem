@@ -12,6 +12,8 @@ const Profile = () => {
   });
   const [loading, setLoading] = useState(false);
 
+  console.log('Profile mounted. User:', user);
+
   useEffect(() => {
     // Fetch profile data from the backend
     const fetchProfile = async () => {
