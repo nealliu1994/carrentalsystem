@@ -59,7 +59,14 @@ const getProfile = async (req, res) => {
 };
 
 const updateUserProfile = async (req, res) => {
+    console.log('Received update request:', req.body);
+    console.log('User ID:', req.user?.id);
+
+    if (!req.user || !req.user.id) {
+        return res.status(401).json({ message: 'Unauthorized: No user found in request' });
+    }
     try {
+        console.log("Received update request:", req.body);
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ message: 'User not found' });
 
@@ -69,12 +76,26 @@ const updateUserProfile = async (req, res) => {
         user.phoneNumber = phoneNumber || user.phoneNumber;
         user.address = address || user.address;
 
+
+
+        console.log("Updated user object before save:", user);
+
         const updatedUser = await user.save();
+
+        console.log("User updated successfully:", updatedUser);
+
         res.json({
-            id: updatedUser.id, name: updatedUser.name, email: updatedUser.email,
-            phoneNumber: updatedUser.phoneNumber, address: updatedUser.address, token: generateToken(updatedUser.id)
+            id: updatedUser.id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            phoneNumber: updatedUser.phoneNumber,
+            address: updatedUser.address,
+            dateOfBirth: user.dateOfBirth,
+            driverLicenseNumber: user.driverLicenseNumber,
+            token: generateToken(updatedUser.id),
         });
     } catch (error) {
+        console.error('Check whether update error:', error);
         res.status(500).json({ message: error.message });
     }
 };
