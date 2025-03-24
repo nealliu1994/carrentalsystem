@@ -73,9 +73,10 @@ describe('AddRental Function Test', () => {
 describe('UpdateRental Function Test', () => {
     it('should update rental successfully', async () => {
         const rentalId = new mongoose.Types.ObjectId();
+        const userId = new mongoose.Types.ObjectId();
         const existingRental = {
             _id: rentalId,
-            userId: new mongoose.Types.ObjectId(),
+            userId: userId,
             carId: new mongoose.Types.ObjectId(),
             pickupDate: new Date("2025-03-01"),
             returnDate: new Date("2025-03-05"),
@@ -85,7 +86,8 @@ describe('UpdateRental Function Test', () => {
         const findByIdStub = sinon.stub(Rental, 'findById').resolves(existingRental);
 
         const req = {
-            params: { id: rentalId },
+            params: { id: rentalId.toString() },
+            user: { id: userId.toString() },
             body: {
                 carId: new mongoose.Types.ObjectId().toString(),
                 pickupDate: "2025-04-01",
@@ -108,8 +110,14 @@ describe('UpdateRental Function Test', () => {
     });
 
     it('should return 404 if rental is not found', async () => {
+        const rentalId = new mongoose.Types.ObjectId();
+        const userId = new mongoose.Types.ObjectId();
         const findByIdStub = sinon.stub(Rental, 'findById').resolves(null);
-        const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
+        const req = {
+            params: { id: rentalId.toString() },
+            user: { id: userId.toString() },
+            body: {}
+        };
         const res = {
             status: sinon.stub().returnsThis(),
             json: sinon.spy()
@@ -124,8 +132,14 @@ describe('UpdateRental Function Test', () => {
     });
 
     it('should return 500 on error', async () => {
+        const rentalId = new mongoose.Types.ObjectId();
+        const userId = new mongoose.Types.ObjectId();
         const findByIdStub = sinon.stub(Rental, 'findById').throws(new Error('DB Error'));
-        const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
+        const req = {
+            params: { id: rentalId.toString() },
+            user: { id: userId.toString() },
+            body: {},
+        };
         const res = {
             status: sinon.stub().returnsThis(),
             json: sinon.spy()

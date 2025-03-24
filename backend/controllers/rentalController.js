@@ -35,7 +35,7 @@ const addRental = async (req, res) => {
         res.status(201).json(rental);
     } catch (error) {
         console.error("Error saving rental:", error.message);
-        res.status(500).json({ message: "Failed to create rental...", error: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -45,11 +45,13 @@ const updateRental = async (req, res) => {
     const { carId, pickupDate, returnDate } = req.body;
     const userId = req.user.id;
     try {
-        const rental = await Rental.findOne({ _id: req.params.id, userId });
-        if (!rental) return res.status(404).json({ message: 'Rental not found or not authorized' });
+        const rental = await Rental.findById(req.params.id);
+        if (!rental) return res.status(404).json({ message: 'Rental not found' });
+
         rental.carId = carId ? new mongoose.Types.ObjectId(carId) : rental.carId;
         rental.pickupDate = pickupDate ? new Date(pickupDate) : rental.pickupDate;
         rental.returnDate = returnDate ? new Date(returnDate) : rental.returnDate;
+
         const updatedRental = await rental.save();
         res.json(updatedRental);
     } catch (error) {
