@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const { user } = useAuth(); // Access user token from context
@@ -11,8 +12,8 @@ const Profile = () => {
     address: '',
   });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  console.log('Profile mounted. User:', user);
 
   useEffect(() => {
     // Fetch profile data from the backend
@@ -25,8 +26,8 @@ const Profile = () => {
         setFormData({
           name: response.data.name,
           email: response.data.email,
-          phoneNumber: response.data.phoneNumber || '',
-          address: response.data.address || '',
+          phoneNumber: response.data.phoneNumber,
+          address: response.data.address,
         });
       } catch (error) {
         alert('Failed to fetch profile. Please try again.');
@@ -40,13 +41,16 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setLoading(true);
     try {
       await axiosInstance.put('/api/auth/profile', formData, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       alert('Profile updated successfully!');
+      navigate('/');
     } catch (error) {
+      console.error('Update failed:', error.response?.data || error.message);
       alert('Failed to update profile. Please try again.');
     } finally {
       setLoading(false);
@@ -82,6 +86,7 @@ const Profile = () => {
           onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
+
         <input
           type="text"
           placeholder="Address"
