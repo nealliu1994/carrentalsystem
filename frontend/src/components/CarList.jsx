@@ -18,10 +18,9 @@ const CarList = () => {
 
         fetchCars();
     }, []);
-
     // handleRent and navigate to rentalform when user click button
     const handleRent = (car) => {
-        console.log("🚀 Navigating with car data:", car);
+        console.log("Navigating with car data:", car);
         navigate(`/rentals`, { state: { car } });
     };
 
