@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     driverLicenseNumber: { type: String, required: true, unique: true },
     address: { type: String, required: true }
 },
-    { timestamps: true } // add timestamps to record the time of account creating and updating
+    { timestamps: true } // add timestamps to record time
 );
 
 userSchema.pre('save', async function (next) {

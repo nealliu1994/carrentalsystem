@@ -12,7 +12,5 @@ router.use((req, res, next) => {
 router.route('/').get(protect, getRentals).post(protect, addRental);
 router.route('/:id').put(protect, updateRental).delete(protect, deleteRental);
 
-//router.route('/').get(protect, getRentals).post(protect, addRental);
-//router.route('/:id').put(protect, updateRental).delete(protect, deleteRental);
 
 module.exports = router;
