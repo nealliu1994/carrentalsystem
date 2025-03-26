@@ -14,6 +14,7 @@ const registerUser = async (req, res) => {
     console.log('Received data:', req.body);
     try {
         const userExists = await User.findOne({ email });
+
         if (userExists) return res.status(400).json({ message: 'User already exists' });
 
         const user = await User.create({ name, email, password, dateOfBirth, driverLicenseNumber, phoneNumber, address });
