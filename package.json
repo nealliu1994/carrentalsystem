@@ -14,5 +14,8 @@
     "nodemon": "^3.1.9"
   },
   "author": "Car Rental Company",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
 }

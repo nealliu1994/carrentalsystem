@@ -94,7 +94,8 @@ const Profile = () => {
           onChange={(e) => setFormData({ ...formData, address: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+        <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700
+        transform hover:scale-105 transition-transform duration-200">
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>

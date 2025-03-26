@@ -37,7 +37,7 @@ const CarList = () => {
                         <div className="mt-2">
                             <button
                                 onClick={() => handleRent(car)}
-                                className="mr-2 bg-yellow-500 text-white px-4 py-2 rounded"
+                                className="mr-2 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
                             >
                                 Rent this car
                             </button>

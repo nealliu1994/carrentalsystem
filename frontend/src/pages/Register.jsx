@@ -4,18 +4,33 @@ import axiosInstance from '../axiosConfig';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '', email: '', password: '',
-    phoneNumber: '', dateOfBirth: '', driverLicenseNumber: '', address: ''
+    name: '', email: '', password: '', phoneNumber: '', dateOfBirth: '',
+    driverLicenseNumber: '', address: ''
   });
+  console.log('Form Data:', formData);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submitted');
+    console.log(formData);
+
+    if (!formData.name || !formData.email || !formData.password || !formData.phoneNumber || !formData.dateOfBirth || !formData.driverLicenseNumber || !formData.address) {
+      alert('Please fill out all fields.');
+      return;
+    }
+    console.log('Address:', formData.address);
+
     try {
       await axiosInstance.post('/api/auth/register', formData);
       alert('Registration successful. Please log in.');
       navigate('/login');
     } catch (error) {
+      console.error('Registration failed:', {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+      });
       alert('Registration failed... Please try again...');
     }
   };
@@ -73,7 +88,7 @@ const Register = () => {
           onChange={(e) => setFormData({ ...formData, address: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
-        <button type="submit" className="w-full bg-green-600 text-white p-2 rounded">
+        <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
           Register
         </button>
       </form>

@@ -32,13 +32,13 @@ const RentalList = ({ rentals, setRentals, setEditingRental }) => {
           <div className="mt-2">
             <button
               onClick={() => setEditingRental(rental)}
-              className="mr-2 bg-green-700 text-white px-4 py-2 rounded"
+              className="mr-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
             >
               Edit
             </button>
             <button
               onClick={() => handleDelete(rental._id)}
-              className="bg-orange-700 text-white px-4 py-2 rounded"
+              className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700"
             >
               Delete
             </button>
