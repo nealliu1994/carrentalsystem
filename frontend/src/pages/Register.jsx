@@ -15,7 +15,8 @@ const Register = () => {
     console.log('Form submitted');
     console.log(formData);
 
-    if (!formData.name || !formData.email || !formData.password || !formData.phoneNumber || !formData.dateOfBirth || !formData.driverLicenseNumber || !formData.address) {
+    if (!formData.name || !formData.email || !formData.password || !formData.phoneNumber
+      || !formData.dateOfBirth || !formData.driverLicenseNumber || !formData.address) {
       alert('Please fill out all fields.');
       return;
     }
