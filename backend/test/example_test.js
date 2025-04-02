@@ -14,8 +14,8 @@ describe('AddRental Function Test', () => {
             user: { id: new mongoose.Types.ObjectId() },
             body: {
                 carId: new mongoose.Types.ObjectId().toString(),
-                pickupDate: "2025-04-01",
-                returnDate: "2025-04-05"
+                pickupDate: "2025-05-01",
+                returnDate: "2025-05-05"
             }
         };
         const createdRental = {
@@ -90,8 +90,8 @@ describe('UpdateRental Function Test', () => {
             user: { id: userId.toString() },
             body: {
                 carId: new mongoose.Types.ObjectId().toString(),
-                pickupDate: "2025-04-01",
-                returnDate: "2025-04-05"
+                pickupDate: "2025-05-01",
+                returnDate: "2025-05-05"
             }
         };
         const res = {
@@ -162,16 +162,16 @@ describe('GetRental Function Test', () => {
                 _id: new mongoose.Types.ObjectId(),
                 userId,
                 carId: new mongoose.Types.ObjectId(),
-                pickupDate: new Date("2025-04-01"),
-                returnDate: new Date("2025-04-05"),
+                pickupDate: new Date("2025-05-01"),
+                returnDate: new Date("2025-05-05"),
                 status: 'confirmed'
             },
             {
                 _id: new mongoose.Types.ObjectId(),
                 userId,
                 carId: new mongoose.Types.ObjectId(),
-                pickupDate: new Date("2025-05-01"),
-                returnDate: new Date("2025-05-05"),
+                pickupDate: new Date("2025-06-01"),
+                returnDate: new Date("2025-06-05"),
                 status: 'confirmed'
             }
         ];
