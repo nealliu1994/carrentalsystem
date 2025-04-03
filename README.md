@@ -43,7 +43,7 @@ Create a user-friendly interface:
 
 * Use **GitHub for version control** and maintain:
   * `main` branch
-  * Feature branches: signupfeature, updateProfile, carmodel, rentalfeature, rent, feature/fix-issue 
+  * Feature branches: feature/signup, feature/updateProfile, feature/carViewing, feature/rentalAdUpDel, feature/rentalViewing, feature/fix-issue 
 * Follow proper **commit messages** and  **pull request (PR) reviews** .
 
 ### **7. CI/CD Pipeline Setup**
